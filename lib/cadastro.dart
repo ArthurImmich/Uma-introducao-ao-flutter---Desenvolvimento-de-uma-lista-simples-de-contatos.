@@ -7,8 +7,13 @@ class Cadastro extends StatefulWidget {
 
 class _CadastroState extends State<Cadastro> {
   final _formKey = GlobalKey<FormState>();
-
   bool _checked = false;
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _instagramController = TextEditingController();
+  final _facebookController = TextEditingController();
+  final _linkedinController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +29,7 @@ class _CadastroState extends State<Cadastro> {
             child: Column(
               children: [
                 TextFormField(
+                  controller: _nameController,
                   decoration: const InputDecoration(labelText: 'Nome'),
                   //the post fix exclamation mark is a 'casting away nullability'
                   //meaning that it will take the value of null and cast it to a string
@@ -32,27 +38,13 @@ class _CadastroState extends State<Cadastro> {
                       value!.isEmpty ? 'Campo Obrigatório' : null,
                 ),
                 TextFormField(
+                  controller: _emailController,
                   decoration: const InputDecoration(labelText: 'Email'),
                   keyboardType: TextInputType.emailAddress,
-                  //the post fix exclamation mark is a 'casting away nullability'
-                  //meaning that it will take the value of null and cast it to a string
-                  //and then check if it is empty avoiding calling .isEmpty on null
                 ),
                 TextFormField(
-                  readOnly: true,
-                  onTap: () async {
-                    DateTime? date = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime.now());
-                  },
-                ),
-                TextFormField(
+                  controller: _phoneController,
                   decoration: const InputDecoration(labelText: 'Telefone'),
-                  //the post fix exclamation mark is a 'casting away nullability'
-                  //meaning that it will take the value of null and cast it to a string
-                  //and then check if it is empty avoiding calling .isEmpty on null
                 ),
                 CheckboxListTile(
                     title: Text('Whatsapp?'),
@@ -62,22 +54,16 @@ class _CadastroState extends State<Cadastro> {
                       setState(() => _checked = value!);
                     }),
                 TextFormField(
+                  controller: _instagramController,
                   decoration: const InputDecoration(labelText: 'Instagram'),
-                  //the post fix exclamation mark is a 'casting away nullability'
-                  //meaning that it will take the value of null and cast it to a string
-                  //and then check if it is empty avoiding calling .isEmpty on null
                 ),
                 TextFormField(
+                  controller: _facebookController,
                   decoration: const InputDecoration(labelText: 'Facebook'),
-                  //the post fix exclamation mark is a 'casting away nullability'
-                  //meaning that it will take the value of null and cast it to a string
-                  //and then check if it is empty avoiding calling .isEmpty on null
                 ),
                 TextFormField(
+                  controller: _linkedinController,
                   decoration: const InputDecoration(labelText: 'LinkedIn'),
-                  //the post fix exclamation mark is a 'casting away nullability'
-                  //meaning that it will take the value of null and cast it to a string
-                  //and then check if it is empty avoiding calling .isEmpty on null
                 ),
                 ElevatedButton(
                     onPressed: () {
@@ -89,6 +75,7 @@ class _CadastroState extends State<Cadastro> {
                       if (_formKey.currentState!.validate()) {
                         // If the form is valid, display a snackbar. In the real world,
                         // you'd often call a server or save the information in a database.
+
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('Processing Data')));
                       }

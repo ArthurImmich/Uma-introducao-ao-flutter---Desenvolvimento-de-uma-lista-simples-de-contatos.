@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'contatos.dart';
+import 'lista_contatos.dart';
 
 void main() {
   runApp(MyApp());
