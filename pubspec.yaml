@@ -27,6 +27,8 @@ dependencies:
   sqflite:
   path_provider:
   path:
+  url_launcher:
+  font_awesome_flutter:
 
 
   # The following adds the Cupertino Icons font to your application.

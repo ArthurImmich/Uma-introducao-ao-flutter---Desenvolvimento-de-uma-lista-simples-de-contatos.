@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-class Contato {
+class Contact {
   int? id;
   String? name;
   String? email;
@@ -10,7 +10,7 @@ class Contato {
   String? linkedin;
   bool? whatsapp;
 
-  Contato(
+  Contact(
       {this.id,
       @required this.name,
       this.email,
