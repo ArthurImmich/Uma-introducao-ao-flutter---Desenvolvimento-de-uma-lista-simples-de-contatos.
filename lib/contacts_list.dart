@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/database.dart';
 import 'package:flutter_app/main.dart';
@@ -62,9 +64,15 @@ class _ContactsListState extends State<ContactsList> {
                 child: ListTile(
                   title: Text(lista[i].name!),
                   //subtitle: Text(contatos[i].phone ?? ''),
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.amber,
-                  ),
+                  leading: lista[i].image != null
+                      ? CircleAvatar(
+                          radius: 30,
+                          backgroundImage: FileImage(File(lista[i].image!)),
+                        )
+                      : CircleAvatar(
+                          radius: 30,
+                          child: Icon(Icons.person, color: Colors.black),
+                          backgroundColor: Colors.amber),
                 ),
               ),
             ),
@@ -101,6 +109,18 @@ class _ContactsListState extends State<ContactsList> {
                   onTap: () async {
                     await canLaunch(lista[i].instagram!)
                         ? launch(lista[i].instagram!)
+                        : ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('URL inválida')));
+                  },
+                ),
+              if (lista[i].phone?.isNotEmpty ?? false)
+                IconSlideAction(
+                  caption: 'Telefone',
+                  color: Colors.black,
+                  icon: FontAwesomeIcons.phone,
+                  onTap: () async {
+                    await canLaunch('tel:${lista[i].phone}')
+                        ? launch('tel:${lista[i].phone}')
                         : ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('URL inválida')));
                   },

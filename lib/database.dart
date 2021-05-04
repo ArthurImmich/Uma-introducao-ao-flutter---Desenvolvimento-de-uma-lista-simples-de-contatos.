@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter_app/contatc.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseConnection {
   Future<Database> _getDatabase() async {
+    var dir = Directory(join(await getDatabasesPath(), 'contacts'));
+    if (!await dir.exists()) dir.create();
     return openDatabase(
-      join(await getDatabasesPath(), 'contacts.db'),
+      join(dir.path, 'contacts.db'),
       onCreate: (db, version) => db.execute(
           '''CREATE TABLE contacts(id INTEGER PRIMARY KEY, name TEXT, email TEXT, 
           phone TEXT, instagram TEXT, facebook TEXT, linkedin TEXT, whatsapp INTEGER)'''),
