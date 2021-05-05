@@ -11,7 +11,7 @@ class DatabaseConnection {
     return openDatabase(
       join(dir.path, 'contacts.db'),
       onCreate: (db, version) => db.execute(
-          '''CREATE TABLE contacts(id INTEGER PRIMARY KEY, name TEXT, email TEXT, 
+          '''CREATE TABLE contacts(id INTEGER PRIMARY KEY, name TEXT, email TEXT, image TEXT,
           phone TEXT, instagram TEXT, facebook TEXT, linkedin TEXT, whatsapp INTEGER)'''),
       version: 1,
     );
@@ -37,6 +37,7 @@ class DatabaseConnection {
             name: maps[i]['name'],
             phone: maps[i]['phone'],
             email: maps[i]['email'],
+            image: maps[i]['image'],
             instagram: maps[i]['instagram'],
             facebook: maps[i]['facebook'],
             linkedin: maps[i]['linkedin'],

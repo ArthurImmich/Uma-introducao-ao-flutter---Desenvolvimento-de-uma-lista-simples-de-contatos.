@@ -8,7 +8,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'registration.dart';
 import 'contatc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-
 import 'edit.dart';
 
 class ContactsList extends StatefulWidget {
