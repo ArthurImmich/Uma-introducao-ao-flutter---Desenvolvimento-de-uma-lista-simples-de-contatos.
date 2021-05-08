@@ -9,7 +9,6 @@ class Contact {
   String? facebook;
   String? linkedin;
   String? image;
-  bool? whatsapp;
 
   Contact(
       {this.id,
@@ -19,8 +18,7 @@ class Contact {
       this.instagram,
       this.facebook,
       this.linkedin,
-      this.image,
-      this.whatsapp});
+      this.image});
 
   Map<String, dynamic> toMap() {
     return {
@@ -32,7 +30,6 @@ class Contact {
       'facebook': facebook,
       'linkedin': linkedin,
       'image': image,
-      'whatsapp': whatsapp,
     };
   }
 }

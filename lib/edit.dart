@@ -1,8 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/contatc.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'database.dart';
+import 'image_assist.dart';
 
 class Edit extends StatefulWidget {
   final Contact contato;
@@ -19,6 +21,7 @@ class _EditState extends State<Edit> {
   final _instagramController = TextEditingController();
   final _facebookController = TextEditingController();
   final _linkedinController = TextEditingController();
+  File? _fileImage;
 
   @override
   void initState() {
@@ -29,6 +32,8 @@ class _EditState extends State<Edit> {
     _instagramController.text = widget.contato.instagram ?? '';
     _facebookController.text = widget.contato.facebook ?? '';
     _linkedinController.text = widget.contato.linkedin ?? '';
+    _fileImage =
+        widget.contato.image != null ? File(widget.contato.image!) : null;
   }
 
   @override
@@ -45,6 +50,29 @@ class _EditState extends State<Edit> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _fileImage != null
+                          ? CircleAvatar(
+                              radius: 30,
+                              backgroundImage: FileImage(_fileImage!),
+                            )
+                          : CircleAvatar(
+                              radius: 30,
+                              child: Icon(Icons.person, color: Colors.black),
+                              backgroundColor: Colors.amber),
+                      ElevatedButton(
+                        onPressed: () => ImageAssist()
+                            .pickFile()
+                            .then((file) => setState(() => _fileImage = file)),
+                        child: Text('Selecionar Imagem'),
+                      ),
+                    ],
+                  ),
+                ),
                 TextFormField(
                   controller: _nameController,
                   decoration: const InputDecoration(labelText: 'Nome'),
@@ -63,13 +91,6 @@ class _EditState extends State<Edit> {
                   controller: _phoneController,
                   decoration: const InputDecoration(labelText: 'Telefone'),
                 ),
-                CheckboxListTile(
-                    title: Text('Whatsapp?'),
-                    value: widget.contato.whatsapp,
-                    controlAffinity: ListTileControlAffinity.platform,
-                    onChanged: (value) {
-                      setState(() => widget.contato.whatsapp = value);
-                    }),
                 TextFormField(
                   controller: _instagramController,
                   decoration: const InputDecoration(labelText: 'Instagram'),
@@ -97,8 +118,6 @@ class _EditState extends State<Edit> {
                             //  If any text field contains errors, the validate() method rebuilds the
                             //  form to display any error messages and returns false.
                             if (_formKey.currentState!.validate()) {
-                              DatabaseConnection databaseConnection =
-                                  DatabaseConnection();
                               try {
                                 widget.contato.name = _nameController.text;
                                 widget.contato.email = _emailController.text;
@@ -109,15 +128,20 @@ class _EditState extends State<Edit> {
                                     _facebookController.text;
                                 widget.contato.linkedin =
                                     _linkedinController.text;
-                                await databaseConnection.update(widget.contato);
+                                if (_fileImage != null) {
+                                  if (widget.contato.image != _fileImage!.path)
+                                    File(widget.contato.image!).delete();
+                                  ImageAssist().saveImage(_fileImage!).then(
+                                      (path) => widget.contato.image = path);
+                                }
+                                await DatabaseConnection()
+                                    .update(widget.contato);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(content: Text('Editado!')));
                                 Navigator.of(context).pop();
                               } catch (e) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content:
-                                            Text('Erro ao editar contato!')));
+                                    SnackBar(content: Text('Erro ao editar!')));
                               }
                             }
                           },

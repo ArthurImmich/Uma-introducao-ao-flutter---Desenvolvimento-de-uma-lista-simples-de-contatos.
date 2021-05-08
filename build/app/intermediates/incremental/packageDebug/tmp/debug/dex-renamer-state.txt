@@ -1,0 +1,4 @@
+#Fri May 07 23:41:57 BRT 2021
+base.0=D\:\\SimpleFlutterTutorial\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

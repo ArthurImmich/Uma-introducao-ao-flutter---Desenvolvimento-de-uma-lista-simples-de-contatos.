@@ -3,12 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/database.dart';
 import 'package:flutter_app/main.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'registration.dart';
+
 import 'contatc.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'edit.dart';
+import 'registration.dart';
 
 class ContactsList extends StatefulWidget {
   ContactsList({Key? key, required this.title}) : super(key: key);
@@ -81,48 +82,35 @@ class _ContactsListState extends State<ContactsList> {
                   caption: 'LinkedIn',
                   color: Colors.blue.shade800,
                   icon: FontAwesomeIcons.linkedin,
-                  onTap: () async {
-                    await canLaunch(lista[i].linkedin!)
-                        ? launch(lista[i].linkedin!)
-                        : ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('URL inválida')));
-                  },
+                  onTap: () => launch(lista[i].linkedin!),
                 ),
               if (lista[i].facebook?.isNotEmpty ?? false)
                 IconSlideAction(
                   caption: 'Facebook',
                   color: Colors.blue.shade600,
                   icon: FontAwesomeIcons.facebook,
-                  onTap: () async {
-                    await canLaunch(lista[i].facebook!)
-                        ? launch(lista[i].facebook!)
-                        : ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('URL inválida')));
-                  },
+                  onTap: () => launch(lista[i].facebook!),
                 ),
               if (lista[i].instagram?.isNotEmpty ?? false)
                 IconSlideAction(
                   caption: 'Instagram',
                   color: Colors.purple.shade600,
                   icon: FontAwesomeIcons.instagram,
-                  onTap: () async {
-                    await canLaunch(lista[i].instagram!)
-                        ? launch(lista[i].instagram!)
-                        : ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('URL inválida')));
-                  },
+                  onTap: () => launch(lista[i].instagram!),
                 ),
               if (lista[i].phone?.isNotEmpty ?? false)
                 IconSlideAction(
                   caption: 'Telefone',
                   color: Colors.black,
                   icon: FontAwesomeIcons.phone,
-                  onTap: () async {
-                    await canLaunch('tel:${lista[i].phone}')
-                        ? launch('tel:${lista[i].phone}')
-                        : ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('URL inválida')));
-                  },
+                  onTap: () => launch('tel:${lista[i].phone}'),
+                ),
+              if (lista[i].email?.isNotEmpty ?? false)
+                IconSlideAction(
+                  caption: 'Email',
+                  color: Colors.deepPurple,
+                  icon: FontAwesomeIcons.envelope,
+                  onTap: () => launch('mailto:${lista[i].email}'),
                 ),
               IconSlideAction(
                 caption: 'Editar',

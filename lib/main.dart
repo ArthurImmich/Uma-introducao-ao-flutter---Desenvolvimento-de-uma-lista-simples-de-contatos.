@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/themes.dart';
+
 import 'contacts_list.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(ContactsListApp());
 CustomTheme currentTheme = CustomTheme();
 
-class MyApp extends StatefulWidget {
+class ContactsListApp extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _ContactsListAppState createState() => _ContactsListAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _ContactsListAppState extends State<ContactsListApp> {
   @override
   void initState() {
     super.initState();
-    currentTheme.addListener(() {
-      setState(() {});
-    });
+    currentTheme.addListener(() => setState(() {}));
   }
 
   @override

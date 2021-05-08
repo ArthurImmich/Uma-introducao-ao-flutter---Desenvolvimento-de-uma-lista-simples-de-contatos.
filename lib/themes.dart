@@ -15,12 +15,9 @@ class CustomTheme with ChangeNotifier {
       ),
       checkboxTheme: CheckboxThemeData(
         fillColor: MaterialStateColor.resolveWith(
-          (states) {
-            if (states.contains(MaterialState.selected)) {
-              return Colors.amber;
-            }
-            return Colors.black38;
-          },
+          (states) => states.contains(MaterialState.selected)
+              ? Colors.amber
+              : Colors.black38,
         ),
       ),
     );
@@ -41,12 +38,9 @@ class CustomTheme with ChangeNotifier {
       ),
       checkboxTheme: CheckboxThemeData(
         fillColor: MaterialStateColor.resolveWith(
-          (states) {
-            if (states.contains(MaterialState.selected)) {
-              return Colors.amber;
-            }
-            return Colors.white;
-          },
+          (states) => states.contains(MaterialState.selected)
+              ? Colors.amber
+              : Colors.white,
         ),
       ),
     );

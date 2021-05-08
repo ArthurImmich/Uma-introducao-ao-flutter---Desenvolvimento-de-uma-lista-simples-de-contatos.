@@ -12,7 +12,7 @@ class DatabaseConnection {
       join(dir.path, 'contacts.db'),
       onCreate: (db, version) => db.execute(
           '''CREATE TABLE contacts(id INTEGER PRIMARY KEY, name TEXT, email TEXT, image TEXT,
-          phone TEXT, instagram TEXT, facebook TEXT, linkedin TEXT, whatsapp INTEGER)'''),
+          phone TEXT, instagram TEXT, facebook TEXT, linkedin TEXT)'''),
       version: 1,
     );
   }
@@ -41,7 +41,6 @@ class DatabaseConnection {
             instagram: maps[i]['instagram'],
             facebook: maps[i]['facebook'],
             linkedin: maps[i]['linkedin'],
-            whatsapp: maps[i]['whatsapp'] != 0 ? true : false,
           ),
         );
       });
