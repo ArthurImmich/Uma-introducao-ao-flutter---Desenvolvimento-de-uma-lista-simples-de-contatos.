@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/contatc.dart';
+import 'package:flutter_app/contact.dart';
 
 import 'database.dart';
 import 'image_assist.dart';
@@ -26,7 +26,7 @@ class _EditState extends State<Edit> {
   @override
   void initState() {
     super.initState();
-    _nameController.text = widget.contato.name ?? '';
+    _nameController.text = widget.contato.name!;
     _emailController.text = widget.contato.email ?? '';
     _phoneController.text = widget.contato.phone ?? '';
     _instagramController.text = widget.contato.instagram ?? '';
@@ -40,7 +40,7 @@ class _EditState extends State<Edit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cadastro'),
+        title: Text('Editar'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -134,8 +134,7 @@ class _EditState extends State<Edit> {
                                   ImageAssist().saveImage(_fileImage!).then(
                                       (path) => widget.contato.image = path);
                                 }
-                                await DatabaseConnection()
-                                    .update(widget.contato);
+                                DatabaseConnection().update(widget.contato);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(content: Text('Editado!')));
                                 Navigator.of(context).pop();

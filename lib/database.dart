@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter_app/contatc.dart';
+import 'package:flutter_app/contact.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -17,17 +17,17 @@ class DatabaseConnection {
     );
   }
 
-  Future create(Contact contato) async =>
+  void create(Contact contato) =>
       _getDatabase().then((db) => db.insert('contacts', contato.toMap()));
 
-  Future delete(int id) async => _getDatabase()
+  void delete(int id) => _getDatabase()
       .then((db) => db.delete('contacts', where: "id = ?", whereArgs: [id]));
 
-  Future update(Contact contato) async =>
+  void update(Contact contato) =>
       _getDatabase().then((db) => db.update('contacts', contato.toMap(),
           where: "id = ?", whereArgs: [contato.id]));
 
-  Future<List<Contact>> getContacts() async {
+  Future<List<Contact>> getContacts() {
     return _getDatabase().then((db) {
       return db.query('contacts').then((List<Map<String, dynamic>> maps) {
         return List.generate(

@@ -7,7 +7,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'contatc.dart';
+import 'contact.dart';
 import 'edit.dart';
 import 'registration.dart';
 
@@ -25,10 +25,10 @@ class _ContactsListState extends State<ContactsList> {
   var lista = <Contact>[];
   @override
   void initState() {
+    db.getContacts().then((contatos) {
+      if (this.mounted) setState(() => lista = contatos);
+    });
     super.initState();
-    db.getContacts().then((contatos) => setState(() {
-          lista = contatos;
-        }));
   }
 
   @override
@@ -63,7 +63,6 @@ class _ContactsListState extends State<ContactsList> {
               child: Center(
                 child: ListTile(
                   title: Text(lista[i].name!),
-                  //subtitle: Text(contatos[i].phone ?? ''),
                   leading: lista[i].image != null
                       ? CircleAvatar(
                           radius: 30,
@@ -137,7 +136,7 @@ class _ContactsListState extends State<ContactsList> {
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => Registration())),
-        tooltip: 'Increment',
+        tooltip: 'Registrar',
         child: Icon(Icons.add),
       ),
     );

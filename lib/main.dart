@@ -14,8 +14,10 @@ class ContactsListApp extends StatefulWidget {
 class _ContactsListAppState extends State<ContactsListApp> {
   @override
   void initState() {
+    currentTheme.addListener(() {
+      if (mounted) setState(() {});
+    });
     super.initState();
-    currentTheme.addListener(() => setState(() {}));
   }
 
   @override
