@@ -4,7 +4,7 @@ import 'package:flutter_app/themes.dart';
 import 'contacts_list.dart';
 
 void main() => runApp(ContactsListApp());
-CustomTheme currentTheme = CustomTheme();
+CustomTheme customTheme = CustomTheme();
 
 class ContactsListApp extends StatefulWidget {
   @override
@@ -14,7 +14,7 @@ class ContactsListApp extends StatefulWidget {
 class _ContactsListAppState extends State<ContactsListApp> {
   @override
   void initState() {
-    currentTheme.addListener(() {
+    customTheme.addListener(() {
       if (mounted) setState(() {});
     });
     super.initState();
@@ -26,7 +26,7 @@ class _ContactsListAppState extends State<ContactsListApp> {
       title: 'Contatos',
       theme: CustomTheme.lightTheme,
       darkTheme: CustomTheme.darkTheme,
-      themeMode: currentTheme.currentTheme,
+      themeMode: customTheme.currentTheme,
       home: ContactsList(title: 'Contatos'),
     );
   }

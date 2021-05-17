@@ -39,7 +39,7 @@ class _ContactsListState extends State<ContactsList> {
         actions: [
           IconButton(
             icon: const Icon(Icons.brightness_4),
-            onPressed: () => currentTheme.toggleTheme(),
+            onPressed: () => customTheme.toggleTheme(),
           )
         ],
       ),
@@ -57,7 +57,7 @@ class _ContactsListState extends State<ContactsList> {
           itemCount: lista.length,
           itemBuilder: (context, i) => Slidable(
             actionPane: SlidableDrawerActionPane(),
-            actionExtentRatio: 0.15,
+            actionExtentRatio: 0.14,
             child: SizedBox(
               height: 70,
               child: Center(
@@ -125,8 +125,9 @@ class _ContactsListState extends State<ContactsList> {
                 onTap: () {
                   db
                     ..delete(lista[i].id!)
-                    ..getContacts()
-                        .then((contatos) => setState(() => lista = contatos));
+                    ..getContacts().then(
+                      (contatos) => setState(() => lista = contatos),
+                    );
                 },
               ),
             ],
