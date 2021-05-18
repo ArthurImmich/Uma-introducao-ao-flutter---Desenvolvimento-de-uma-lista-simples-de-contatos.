@@ -2,4 +2,4 @@
 
 Código de Tutorial de aplicação simples relacionada a projeto sobre flutter.
 
-Tutorial disponível em: https://youtu.be/eJt5GFw9Ai4
+Tutorial disponível em: https://youtu.be/0yEXA5GszWI
